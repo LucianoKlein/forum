@@ -1,4 +1,4 @@
-<style lang="less">
+<style lang="scss">
 .container {
   height: 100%;
   display: flex;
@@ -15,9 +15,7 @@ import 'wepy-async-function'
 
 export default class extends wepy.app {
   config = {
-    pages: [
-      'pages/index'
-    ],
+    pages: ['pages/index'],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
@@ -30,27 +28,7 @@ export default class extends wepy.app {
     userInfo: null
   }
 
-  constructor () {
-    super()
-    this.use('requestfix')
-  }
-
-  onLaunch() {
-    this.testAsync()
-  }
-
-  sleep (s) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve('promise resolved')
-      }, s * 1000)
-    })
-  }
-
-  async testAsync () {
-    const data = await this.sleep(3)
-    console.log(data)
-  }
+  onLaunch() {}
 
   getUserInfo(cb) {
     const that = this
@@ -58,7 +36,7 @@ export default class extends wepy.app {
       return this.globalData.userInfo
     }
     wepy.getUserInfo({
-      success (res) {
+      success(res) {
         that.globalData.userInfo = res.userInfo
         cb && cb(res.userInfo)
       }
