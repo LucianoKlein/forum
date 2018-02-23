@@ -1,7 +1,7 @@
 <style lang="scss">
 
 @function toRpx( $input ) {
-  @return $input / 5 * 7 + rpx;
+  @return $input / 5 * 6.8 + rpx;
 }
 
 @function maxW() {
@@ -104,6 +104,46 @@
   height: toRpx(2);
   background-color: #E7E7E7;
 }
+
+.registercard.inactive {
+  background-color: #ED2553;
+  height: toRpx(141);
+  width: toRpx(141);
+  border-radius: 50%;
+  overflow: hidden;
+  transform: translate(toRpx(202), toRpx(-501));
+}
+.regWindowWrapper.inactive {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.registercard.inactive .switchButton{
+  display: flex;
+  justify-content: center;
+  width: toRpx(32);
+  height: toRpx(32);
+  align-items: center;
+  transform: rotate(-135deg);
+  position: absolute;
+}
+
+.registercard.inactive .switchButton .heng{
+  transform: rotate(-45deg);
+}
+.registercard.inactive .switchButton .shu{
+  transform: rotate(45deg);
+}
+.registercard.inactive .switchButton .shu,
+.registercard.inactive .switchButton .heng {
+  width: toRpx(6);
+  height: toRpx(30);
+  background-color: #fff;
+  transform-origin: center center;
+  position: absolute;
+}
 </style>
 <template>
   <view class="container">
@@ -125,9 +165,17 @@
           <view class="button"><view class="textWrapper">GO</view></view>
           <view class="forgetPassword">Forgot your password?</view>
         </view>
-
       </view>
-      <view class="registercard"></view>
+      <view class="registercard inactive">
+        <view class="regWindowWrapper inactive">
+          <view class="registerLogo"></view>
+          <view class="switchButton" class="switchButton">
+            <view class="heng"></view>
+            <view class="shu"></view>
+          </view>
+          <view class="innerMask"></view>
+        </view>
+      </view>
     </view>
   </view>
 </template>
