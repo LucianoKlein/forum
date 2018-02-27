@@ -1,7 +1,10 @@
 <style lang="scss">
 
+@function toRpxNum( $input ) {
+  @return $input / 5 * 6.8;
+}
 @function toRpx( $input ) {
-  @return $input / 5 * 6.8 + rpx;
+  @return toRpxNum( $input ) + rpx;
 }
 
 @function maxW() {
@@ -10,6 +13,25 @@
 
 @function maxH() {
   @return 1200 + rpx;
+}
+
+@function XrotateX( $delta ) {
+  $origin: -135;
+  @return $origin + $delta + deg;
+}
+@mixin XposX( $position ) {
+  @if $position == "right" {
+
+  }
+  @if $position == "openMiddle" {
+
+  }
+  @if $position == "closeMiddle" {
+
+  }
+  @if $position == "left" {
+    transform: translate(513rpx, -102rpx);
+  }
 }
 
 @mixin widthheight( $width, $height ) {
@@ -23,6 +45,14 @@
 @mixin verticalMiddleAlign($height: toRpx(10)) {
   line-height: $height;
   height: $height;
+}
+
+$heightBG: toRpxNum(552);
+$heightLogin: toRpxNum(552);
+$heightRegister: toRpxNum(552);
+
+@function calculateMarginTopRegister() {
+  @return $heightRegister * -1 + toRpxNum(10) + rpx;
 }
 
 .container {
@@ -136,7 +166,6 @@
         align-items: center;
         @include widthheight( 100%, 100% );
         .registerLogo {
-
         }
         .switchButton {
           display: flex;
@@ -165,7 +194,83 @@
       }
     }
     &.active {
+      @include widthheight( toRpx(461), toRpx(552) );
+      background-color: #ED2552;
+      @include roundCorner();
+      // margin-top: -750rpx;
+       margin-top: calculateMarginTopRegister();
+      .regWindowWrapper {
+        @include widthheight( 100%, 100% );
+        .registerLogo {
+          font-family: "Calibri", "Franklin Gothic Demi", "Source Sans Pro Black", "Aharoni", "Cooper Black";
+          font-size: toRpx(37);
+          @include verticalMiddleAlign(toRpx(44));
+          color: #ffffff;
+          margin: toRpx(60) 0 toRpx(40) 0;
+          padding-left: toRpx(44);
+          border-left: 4px solid white;
+        }
+        .switchButton {
+          display: flex;
+          justify-content: center;
+          transform: XrotateX(135);
+          @include widthheight( toRpx(32), toRpx(32));
+          @include XposX("left");
+          align-items: center;
+          transform: XrotateX(0);
+          position: absolute;
+          .heng, .shu {
+            @include widthheight( toRpx(6), toRpx(30) );
+            background-color: #fff;
+            transform-origin: center center;
+            position: absolute;
+          }
+          .heng {
+            transform: rotate(-45deg);
+          }
 
+          .shu {
+            transform: rotate(45deg);
+          }
+        }
+        .progressBar {
+          @include widthheight( 100%, toRpx(2) );
+          background-color: #F77C99;
+        }
+        .interactArea {
+          margin: 0 toRpx(53);
+          label {
+            display: block;
+            width: 100%;
+            color: white;
+            font-family: "Calibri", "Tahoma";
+            font-size: toRpx(26);
+            font-weight: lighter;
+            margin-bottom: toRpx(18);
+          }
+          input {
+            display: none;
+          }
+          .usernameArea, .passwordArea {
+            margin-bottom: toRpx(54);
+          }
+
+          .repeatPasswordArea {
+            margin-bottom: toRpx(45);
+          }
+          .nextButton {
+            @include widthheight( 100%, toRpx(72) );
+            @include verticalMiddleAlign( toRpx(72) );
+            background-color: #fff;
+            color: #ED2553;
+            font-family: "Arial Unicode MS";
+            font-size: toRpx(23);
+            text-align: center;
+            font-weight: bolder;
+          }
+        }
+
+      }
     }
   }
 }
@@ -192,12 +297,30 @@
           <view class="forgetPassword">Forgot your password?</view>
         </view>
       </view>
-      <view class="registercard inactive">
-        <view class="regWindowWrapper inactive">
-          <view class="registerLogo"></view>
+      <view class="registercard active">
+        <view class="regWindowWrapper active">
+          <view class="registerLogo">REGISTER</view>
           <view class="switchButton" class="switchButton">
             <view class="heng"></view>
             <view class="shu"></view>
+          </view>
+          <view class="interactArea">
+            <view class="usernameArea">
+              <label for="username">Username</label>
+              <input type="text" id="username">
+              <view class="progressBar"></view>
+            </view>
+            <view class="passwordArea">
+              <label for="password">Password</label>
+              <input type="text" id="password">
+              <view class="progressBar"></view>
+            </view>
+            <view class="repeatPasswordArea">
+              <label for="repeatPasswordArea">Repeat Password</label>
+              <input type="text" id="repeatPasswordArea">
+              <view class="progressBar"></view>
+            </view>
+            <view class="nextButton">NEXT</view>
           </view>
           <view class="innerMask"></view>
         </view>
